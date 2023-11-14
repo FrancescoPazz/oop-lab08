@@ -4,6 +4,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.Border;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -29,31 +32,39 @@ public class MiniGUI {
      */
     public MiniGUI() {
         /*
+         *   Part 1
+         */
+
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
+        
+        final JPanel newCanvas = new JPanel();
+        newCanvas.setLayout(new BoxLayout(newCanvas, BoxLayout.LINE_AXIS));;
+
+        canvas.add(newCanvas, BorderLayout.CENTER);
         final JButton write = new JButton("Print a random number on standard output");
-        canvas.add(write, BorderLayout.CENTER);
+        newCanvas.add(write);
+        
+        /*
+        *   Part 2 
+        */
+        
+        JTextField result = new JTextField();
+        canvas.add(result, BorderLayout.NORTH);
+
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        */
 
-        /*
-         * Part 1 
-        */
 
-        final JPanel canvas2 = new JPanel();
-        canvas2.setLayout(new BoxLayout(canvas2, BoxLayout.X_AXIS));
-        final JButton write = new JButton("Test");
-        canvas2.add(write);
-        frame.setContentPane(canvas2);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
          * Handlers
          */
         write.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                System.out.println(randomGenerator.nextInt());
+                int generatedNumber = randomGenerator.nextInt();
+                result.setText(String.valueOf(generatedNumber));
+                System.out.println(generatedNumber);
             }
         });
     }
